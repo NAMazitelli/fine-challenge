@@ -19,5 +19,5 @@ declare type DocType = {
     originalFilename: string,
     fileExtension: string,
     fileType?: "EVIDENCE" | "DOCUMENT",
-    createdAt: Date
+    createdAt: string
 }

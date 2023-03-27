@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { Dialog, Button, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 import { useDocuments, useAddDocument } from '@/src/contexts/hooks';
 const UploadModal = () => {
@@ -14,15 +14,15 @@ const UploadModal = () => {
       setOpen(false);
     };
 
-    const handleUploadFile = (e) => {
+    const handleUploadFile = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            const { lastModifiedDate, type, name } = e.target.files[0]
+            const { type, name } = e.target.files[0]
 
             const newDocument: DocType = {
                 id: `${documents.length + 1}`,
                 originalFilename: name,
                 fileExtension: type,
-                createdAt: lastModifiedDate,
+                createdAt: new Date().toLocaleString("en-US"),
             }
 
             addDocument(newDocument)

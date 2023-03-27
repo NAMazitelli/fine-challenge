@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDocuments, useSearchDocument, useFilteredDocs } from '@/src/contexts/hooks';
 import { Search } from '@mui/icons-material'
@@ -15,7 +16,7 @@ const DocumentsGrid = () => {
         { field: 'fileType', headerName: 'Type', flex: 1 },
         { field: 'fileExtension', headerName: 'File Extension', flex: 1 }
     ];
-    const handleOnSearch = (e) => searchDocument(e.target.value)
+    const handleOnSearch = (e: ChangeEvent<HTMLInputElement>) => searchDocument(e.target.value)
 
     return (
         <>
@@ -25,7 +26,7 @@ const DocumentsGrid = () => {
                 id="name"
                 type="text"
                 placeholder="Search..."
-                onChange={(e) => handleOnSearch(e)} 
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnSearch(e)} 
                 startAdornment={
                 <InputAdornment position="start">
                     <Search />
