@@ -15,6 +15,16 @@ export function useFilteredDocs(): DocContextType['state']['filteredDocs'] {
   
     return filteredDocs
   }
+
+
+export function useQuery(): DocContextType['state']['query'] {
+    const {
+      state: { query }
+    } = useContext(DocsContext)
+  
+    return query
+  }
+
 export function useAddDocument(): DocContextType['actions']['addDocument'] {
     const {
       actions: { addDocument }

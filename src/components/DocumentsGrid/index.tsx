@@ -1,13 +1,13 @@
 import { ChangeEvent } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { useDocuments, useSearchDocument, useFilteredDocs } from '@/src/contexts/hooks';
+import { useDocuments, useSearchDocument, useFilteredDocs, useQuery } from '@/src/contexts/hooks';
 import { Search } from '@mui/icons-material'
 import { InputAdornment, Input  } from '@mui/material'
 
 const DocumentsGrid = () => {
     const documents = useDocuments();
     const filteredDocs = useFilteredDocs();
-
+    const query = useQuery()
     const searchDocument = useSearchDocument();
 
     const columns = [
@@ -33,7 +33,7 @@ const DocumentsGrid = () => {
                 </InputAdornment>
                 }
             />
-            { documents.length > 0 ? 
+            { (documents.length > 0 && query === "") || (filteredDocs.length > 0 && query !== "") ? 
                 (
                     <DataGrid 
                         rows={filteredDocs.length > 0 ? filteredDocs : documents} 
