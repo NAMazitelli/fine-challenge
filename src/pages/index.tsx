@@ -1,28 +1,18 @@
 import Head from 'next/head'
-import {  Roboto } from 'next/font/google'
-import { DataGrid } from '@mui/x-data-grid';
+import { Roboto } from 'next/font/google'
+import { Container } from '@mui/material'
+import DocumentsGrid from '@/components/DocumentsGrid'
+import UploadModal from '@/components/UploadModal'
+import { Provider } from '@/src/contexts'
+import styles from '@/src/styles/Home.module.scss'
 
 const roboto = Roboto({ subsets: ['latin'], weight: "300" })
 
-type RowsType = {
-  id: string,
-  originalFilename: string,
-  fileExtension: string,
-  fileType?: "EVIDENCE" | "DOCUMENT",
-  createdAt: Date
-}
-
 export default function Home() {
   const rows = [
-    { id: 1, col1: 'Hello', col2: 'World' },
-    { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    { id: 3, col1: 'MUI', col2: 'is Amazing' },
+    { id: 1, originalFilename: 'Hello', createdAt: '200', fileType: 'png', fileExtension: 'World' },
   ];
 
-  const columns = [
-    { field: 'col1', headerName: 'Column 1', width: 150 },
-    { field: 'col2', headerName: 'Column 2', width: 150 },
-  ];
 
   return (
     <>
@@ -33,12 +23,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={roboto.className} >
-        <div> 
-          <h1>My Documents</h1>
+        <Provider>
 
-          <DataGrid autoHeight  rows={rows} columns={columns} />
+          <Container> 
+            <div className={styles.header}>
+              <h1>My Documents</h1>
+              <UploadModal />
+            </div>
+            
+            <DocumentsGrid  />
+     
+          </Container>
+        </Provider>
 
-        </div>
       </main>
     </>
   )
