@@ -1,11 +1,16 @@
+
 declare type DocContextType = {
     state: {
-        documents: DocType[]
-    }
+        documents: DocType[],
+        filteredDocs: DocType[],
+        status: 'loading' | 'ready'  | 'update',
+        query: string
+    },
     actions: {
         addDocument: (doc: DocType) => void,
         removeDocument: (id: string) => void,
-        editDocument: (id: string, doc: DocType) => void
+        editDocument: (id: string, doc: DocType) => void,
+        searchDocs: (query: string) => void
     }
 }
 

@@ -30,7 +30,7 @@ export default function Home() {
               <h1>My Documents</h1>
               <UploadModal />
             </div>
-            
+
             <DocumentsGrid  />
      
           </Container>

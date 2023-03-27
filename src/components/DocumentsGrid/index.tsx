@@ -1,23 +1,52 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useDocuments } from '@/src/contexts/hooks';
+import { useDocuments, useSearchDocument, useFilteredDocs } from '@/src/contexts/hooks';
+import { Search } from '@mui/icons-material'
+import { InputAdornment, Input  } from '@mui/material'
 
 const DocumentsGrid = () => {
     const documents = useDocuments();
+    const filteredDocs = useFilteredDocs();
+
+    const searchDocument = useSearchDocument();
 
     const columns = [
-        { field: 'originalFilename', headerName: 'Original File Name', width: 150 },
-        { field: 'createdAt', headerName: 'Uploaded At', width: 150 },
-        { field: 'fileType', headerName: 'Type', width: 150 },
-        { field: 'fileExtension', headerName: 'File Extension', width: 150 }
+        { field: 'originalFilename', headerName: 'Original File Name', flex: 1 },
+        { field: 'createdAt', headerName: 'Uploaded At', flex: 1 },
+        { field: 'fileType', headerName: 'Type', flex: 1 },
+        { field: 'fileExtension', headerName: 'File Extension', flex: 1 }
     ];
-    
+    const handleOnSearch = (e) => searchDocument(e.target.value)
+    console.log(filteredDocs, documents)
+
     return (
         <>
+            <Input
+                autoFocus
+                margin="dense"
+                id="name"
+                type="text"
+                placeholder="Search..."
+                onChange={(e) => handleOnSearch(e)} 
+                startAdornment={
+                <InputAdornment position="start">
+                    <Search />
+                </InputAdornment>
+                }
+            />
             { documents.length > 0 ? 
                 (
-                    <DataGrid rows={documents} columns={columns} autoHeight />
+                    <DataGrid 
+                        rows={filteredDocs.length > 0 ? filteredDocs : documents} 
+                        columns={columns} 
+                        autoHeight    
+                        initialState={{
+                            pagination: {
+                                paginationModel: { pageSize: 5, page: 0 },
+                            },
+                        }} 
+                    />
                 ) :
-                (<h2>Upload documents to start!</h2>)
+                (<h2>There are no documents.</h2>)
             }
         </>
     )
