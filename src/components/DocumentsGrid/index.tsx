@@ -16,7 +16,6 @@ const DocumentsGrid = () => {
         { field: 'fileExtension', headerName: 'File Extension', flex: 1 }
     ];
     const handleOnSearch = (e) => searchDocument(e.target.value)
-    console.log(filteredDocs, documents)
 
     return (
         <>
